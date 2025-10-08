@@ -1,0 +1,73 @@
+<!--
+FlavioCallega
+08/10/25
+WRW_BigBoss
+-->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendário de Imóveis</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { text-align: center; }
+    #calendar { max-width: 900px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    select, .reserva-btn, .sync-link { display: block; margin: 20px auto; font-size: 16px; }
+    select { padding: 10px; }
+    .reserva-btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .sync-link { text-align: center; color: #007bff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>Disponibilidade dos Imóveis</h1>
+  <select id="imovelSelect">
+    <option value="casaPraia">🏖️ Casa na Praia</option>
+  </select>
+
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+  <a id="linkCalendario" class="sync-link" href="#" target="_blank">📅 Sincronizar com meu calendário</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: []
+    });
+    calendar.render();
+
+    const linksCalendario = {
+      casaPraia: 'https://www.airbnb.com.br/calendar/ical/41662018.ics?s=b8cedbfaf02c937a5ac60fb776cabbcb'
+    };
+
+    function carregarCalendario() {
+      const imovel = document.getElementById('imovelSelect').value;
+      fetch(`/disponibilidade/${imovel}`)
+        .then(res => res.json())
+        .then(diasOcupados => {
+          const eventos = diasOcupados.map(data => ({
+            title: 'Indisponível',
+            start: data,
+            color: '#ff4d4d'
+          }));
+          calendar.removeAllEvents();
+          calendar.addEventSource(eventos);
+        });
+
+      document.getElementById('linkCalendario').href =
+        `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(linksCalendario[imovel])}`;
+    }
+
+    function reservar() {
+      const imovel = document.getElementById('imovelSelect').value;
+      alert(`Você escolheu reservar o imóvel: ${imovel}`);
+    }
+
+    document.getElementById('imovelSelect').addEventListener('change', carregarCalendario);
+    document.getElementById('imovelSelect').dispatchEvent(new Event('change'));
+  </script>
+</body>
+</html>

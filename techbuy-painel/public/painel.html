@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel TechBuy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      padding: 30px;
+    }
+    .container {
+      max-width: 550px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    input[type="file"] {
+      padding: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background: #0056b3;
+    }
+    .info {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    #menu-config {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Painel de Envio TechBuy</h2>
+    <div class="info">Separe os números com vírgula. Ex: <i>5571999999999,5571888888888</i></div>
+    <input id="nome" placeholder="Seu nome (ex: Flavio)" />
+    <textarea id="mensagem" placeholder="Digite sua mensagem..."></textarea>
+    <input id="contato" placeholder="Números dos contatos" />
+    <input type="file" id="imagem" />
+    <div class="checkbox-container">
+      <label><input type="checkbox" id="menu-toggle" /> Incluir menu interativo</label>
+    </div>
+    <div id="menu-config">
+      <input id="btn1" placeholder="Botão 1" />
+      <input id="btn2" placeholder="Botão 2" />
+      <input id="btn3" placeholder="Botão 3" />
+    </div>
+    <button id="enviar">Enviar Mensagem</button>
+
+    <hr />
+    <h2>Cadastro de Vendedores</h2>
+    <div class="info">Use o formato JSON. Exemplo: <code>{"5571989535440": "Flavio"}</code></div>
+    <form id="form-vendedores">
+      <textarea id="vendedores-json" rows="8" cols="50">
+{
+  "5571989535440": "Flavio"
+}
+      </textarea><br>
+      <button type="submit">Salvar Vendedores</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("enviar").addEventListener("click", async () => {
+      const nome = document.getElementById("nome").value;
+      const mensagem = document.getElementById("mensagem").value;
+      const contato = document.getElementById("contato").value;
+      const imagem = document.getElementById("imagem").files[0];
+      const menu = document.getElementById("menu-toggle").checked ? "on" : "off";
+      const btn1 = document.getElementById("btn1").value;
+      const btn2 = document.getElementById("btn2").value;
+      const btn3 = document.getElementById("btn3").value;
+
+      const numeros = contato.split(",").map(n => n.trim());
+      const todosValidos = numeros.every(n => /^55\d{10,11}$/.test(n));
+      if (!todosValidos) {
+        alert("❌ Um ou mais números estão em formato inválido. Use o formato internacional: 55 + DDD + número.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("nome", nome);
+      formData.append("mensagem", mensagem);
+      formData.append("contatos", JSON.stringify(numeros));
+      formData.append("menu", menu);
+      formData.append("btn1", btn1);
+      formData.append("btn2", btn2);
+      formData.append("btn3", btn3);
+      if (imagem) formData.append("imagem", imagem);
+
+      try {
+        const resposta = await fetch("/enviar", {
+          method: "POST",
+          body: formData
+        });
+
+        const resultado = await resposta.json();
+        if (resultado.status === "sucesso") {
+          alert("✅ Mensagem enviada com sucesso!");
+        } else {
+          alert("❌ Erro ao enviar mensagem.");
+        }
+      } catch (err) {
+        alert("❌ Falha na comunicação com o servidor.");
+      }
+    });
+
+    document.getElementById("menu-toggle").addEventListener("change", (e) => {
+      document.getElementById("menu-config").style.display = e.target.checked ? "block" : "none";
+    });
+
+    document.getElementById("form-vendedores").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const json = document.getElementById("vendedores-json").value;
+
+      try {
+        const resposta = await fetch("/vendedores", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: json
+        });
+
+        const resultado = await resposta.json();
+        alert(resultado.mensagem);
+      } catch (err) {
+        alert("Erro ao salvar vendedores.");
+      }
+    });
+  </script>
+</body>
+</html>

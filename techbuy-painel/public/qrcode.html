@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conectar WhatsApp</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+    }
+    img {
+      max-width: 300px;
+      margin-top: 20px;
+    }
+    h2 {
+      color: #007bff;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+    #qr {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📱 Escaneie o QR Code para conectar</h2>
+  <div id="qr">🔄 Carregando QR Code...</div>
+  <p id="status">Aguardando conexão...</p>
+
+  <script>
+    async function verificarConexao() {
+      try {
+        const res = await fetch("/status");
+        const data = await res.json();
+        if (data.conectado) {
+          window.location.href = "/painel";
+        }
+      } catch (err) {
+        document.getElementById("status").textContent = "❌ Erro ao verificar conexão.";
+      }
+    }
+
+    async function carregarQR() {
+      try {
+        const res = await fetch("/qr");
+        const data = await res.json();
+        const qrDiv = document.getElementById("qr");
+
+        if (data.qr) {
+          qrDiv.innerHTML = `<img src="${data.qr}" alt="QR Code" />`;
+        } else {
+          qrDiv.innerHTML = `<p style="color:#555;">QR Code não disponível. Aguarde...</p>`;
+        }
+      } catch (err) {
+        document.getElementById("qr").innerHTML = `<p style="color:red;">❌ Erro ao carregar QR Code.</p>`;
+      }
+    }
+
+    carregarQR();
+    setInterval(carregarQR, 5000);       // Atualiza QR periodicamente
+    setInterval(verificarConexao, 3000); // Verifica conexão
+  </script>
+</body>
+</html>

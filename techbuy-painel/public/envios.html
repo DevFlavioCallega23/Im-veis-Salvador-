@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel TechBuy</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      padding: 30px;
+    }
+    .container {
+      max-width: 550px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    input[type="file"] {
+      padding: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background: #0056b3;
+    }
+    .marca-dagua {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .info {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .checkbox-container {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    #menu-config {
+      display: none;
+      margin-bottom: 15px;
+    }
+    .submenu-group {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+    .submenu-group input {
+      width: 95%;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Painel de Envio TechBuy</h2>
+    <div class="info">Separe os números com vírgula. Ex: <i>5571999999999,5571888888888</i></div>
+    <input id="nome" placeholder="Seu nome (ex: Flavio)" />
+    <textarea id="mensagem" placeholder="Digite sua mensagem..."></textarea>
+    <input id="contato" placeholder="Números dos contatos" />
+    <input type="file" id="imagem" accept="image/*" />
+
+    <div class="checkbox-container">
+      <label>
+        <input type="checkbox" id="menu" onchange="toggleMenuConfig()" />
+        Enviar menu interativo após a mensagem
+      </label>
+    </div>
+
+    <div id="menu-config">
+      <input id="btn1" placeholder="Texto do botão 1 (ex: Abrir chamado)" />
+      <div class="submenu-group">
+        <input id="sub1_1" placeholder="Submenu 1.1" />
+        <input id="sub1_2" placeholder="Submenu 1.2" />
+      </div>
+
+      <input id="btn2" placeholder="Texto do botão 2 (ex: Falar com atendente)" />
+      <div class="submenu-group">
+        <input id="sub2_1" placeholder="Submenu 2.1" />
+        <input id="sub2_2" placeholder="Submenu 2.2" />
+      </div>
+
+      <input id="btn3" placeholder="Texto do botão 3 (ex: Encerrar)" />
+      <div class="submenu-group">
+        <input id="sub3_1" placeholder="Submenu 3.1" />
+      </div>
+    </div>
+
+    <button id="btnEnviar" onclick="enviar()">Enviar</button>
+    <div class="marca-dagua">© TechBuy - Flavio</div>
+  </div>
+
+  <script>
+    function toggleMenuConfig() {
+      const menuAtivo = document.getElementById('menu').checked;
+      document.getElementById('menu-config').style.display = menuAtivo ? 'block' : 'none';
+    }
+
+    async function enviar() {
+      const nome = document.getElementById('nome').value.trim();
+      const mensagem = document.getElementById('mensagem').value.trim();
+      const contatosRaw = document.getElementById('contato').value.trim();
+      const imagemInput = document.getElementById('imagem');
+      const enviarMenu = document.getElementById('menu').checked;
+      const btn = document.getElementById('btnEnviar');
+
+      if (!mensagem || !contatosRaw) {
+        alert('❗ Preencha pelo menos a mensagem e os contatos.');
+        return;
+      }
+
+      const contatos = contatosRaw.split(',').map(c => c.trim()).filter(c => c);
+
+      const formData = new FormData();
+      formData.append('nome', nome);
+      formData.append('mensagem', mensagem);
+      formData.append('contatos', JSON.stringify(contatos));
+      if (imagemInput.files[0]) {
+        formData.append('imagem', imagemInput.files[0]);
+      }
+      if (enviarMenu) {
+        formData.append('menu', 'on');
+        formData.append('btn1', document.getElementById('btn1').value.trim());
+        formData.append('btn2', document.getElementById('btn2').value.trim());
+        formData.append('btn3', document.getElementById('btn3').value.trim());
+
+        formData.append('sub1', JSON.stringify([
+          document.getElementById('sub1_1').value.trim(),
+          document.getElementById('sub1_2').value.trim()
+        ]));
+
+        formData.append('sub2', JSON.stringify([
+          document.getElementById('sub2_1').value.trim(),
+          document.getElementById('sub2_2').value.trim()
+        ]));
+
+        formData.append('sub3', JSON.stringify([
+          document.getElementById('sub3_1').value.trim()
+        ]));
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      try {
+        const res = await fetch('/enviar', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+        if (data.status === 'sucesso') {
+          alert(`✅ Mensagem enviada para ${data.enviados.length} contato(s)!`);
+          document.getElementById('mensagem').value = '';
+          document.getElementById('contato').value = '';
+          document.getElementById('imagem').value = '';
+        } else {
+          alert(`❌ Erro: ${data.detalhe || 'Falha desconhecida'}`);
+        }
+      } catch (err) {
+        alert(`❌ Erro de conexão: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Enviar';
+      }
+    }
+  </script>
+</body>
+</html>

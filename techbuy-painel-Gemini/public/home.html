@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechBuy - Painel Inicial</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+    h1 {
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .marca-dagua {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bem-vindo ao Painel TechBuy</h1>
+    <a href="/painel" class="btn">📤 Painel de Envios</a>
+    <a href="/ver-historico" class="btn">📋 Histórico de Envios</a>
+    <a href="/menu" class="btn">⚙️ Configurar Menu</a>
+    <div class="marca-dagua">© TechBuy - Flavio</div>
+  </div>
+</body>
+</html>

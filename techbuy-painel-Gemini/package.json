@@ -1,0 +1,26 @@
+{
+  "name": "techbuy-painel",
+  "version": "1.0.0",
+  "description": "Painel de envio de mensagens via WhatsApp com menu interativo",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js",
+    "dev": "nodemon servidor.js",
+    "prod": "node servidor.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.4",
+    "open": "^10.2.0",
+    "puppeteer": "^19.0.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "venom-bot": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [],
+  "author": "Flavio",
+  "license": "MIT"
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Configurar Menu Interativo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      padding: 30px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #status {
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔧 Configurar Menu Interativo</h2>
+    <input id="btn1" placeholder="Texto do botão 1" />
+    <input id="btn2" placeholder="Texto do botão 2" />
+    <input id="btn3" placeholder="Texto do botão 3" />
+    <button onclick="salvar()">Salvar Menu</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    async function salvar() {
+      const btn1 = document.getElementById("btn1").value.trim();
+      const btn2 = document.getElementById("btn2").value.trim();
+      const btn3 = document.getElementById("btn3").value.trim();
+      const status = document.getElementById("status");
+
+      if (!btn1 && !btn2 && !btn3) {
+        status.textContent = "❗ Preencha pelo menos um botão.";
+        status.style.color = "red";
+        return;
+      }
+
+      status.textContent = "🔄 Salvando...";
+      status.style.color = "#555";
+
+      try {
+        const res = await fetch("/salvar-menu", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ btn1, btn2, btn3 })
+        });
+
+        const data = await res.json();
+        if (data.status === "sucesso") {
+          status.textContent = "✅ Menu salvo com sucesso!";
+          status.style.color = "green";
+        } else {
+          status.textContent = "❌ Erro ao salvar menu.";
+          status.style.color = "red";
+        }
+      } catch (err) {
+        status.textContent = "❌ Erro de conexão.";
+        status.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel TechBuy</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            padding: 30px;
+        }
+        .container {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background: #0056b3;
+        }
+        .info {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        #menu-config {
+            display: none;
+        }
+        /* ESTILO PARA MENSAGEM DE STATUS */
+        .status-msg { 
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Painel de Envio TechBuy</h2>
+        <div class="info">Separe os números com vírgula. Ex: <i>5571999999999,5571888888888</i></div>
+        <input id="nome" placeholder="Seu nome (ex: Flavio)" />
+        <textarea id="mensagem" placeholder="Digite sua mensagem..."></textarea>
+        <input id="contato" placeholder="Números dos contatos" />
+        <input type="file" id="imagem" />
+        <div class="checkbox-container">
+            <label><input type="checkbox" id="menu-toggle" /> Incluir menu interativo</label>
+        </div>
+        <div id="menu-config">
+            <input id="btn1" placeholder="Botão 1" />
+            <input id="btn2" placeholder="Botão 2" />
+            <input id="btn3" placeholder="Botão 3" />
+        </div>
+        <button id="enviar">Enviar Mensagem</button>
+        
+        <div id="status-envio" class="status-msg"></div> 
+
+        <hr style="margin: 30px 0;" />
+        
+        <h2>Cadastro de Vendedores</h2>
+        <div class="info">Use o formato JSON. Exemplo: <code>{"5571989535440": "Flavio"}</code></div>
+        <form id="form-vendedores">
+            <textarea id="vendedores-json" rows="8" cols="50"></textarea><br> 
+            <button type="submit" id="salvar-vendedores">Salvar Vendedores</button>
+            <div id="status-vendedores" class="status-msg"></div>
+        </form>
+    </div>
+
+    <script>
+        const btnEnviar = document.getElementById("enviar");
+        const statusEnvio = document.getElementById("status-envio"); // Agora existe no HTML!
+
+        // CORREÇÃO 2: FUNÇÃO PARA CARREGAR VENDEDORES
+        async function carregarVendedores() {
+            try {
+                const res = await fetch("/vendedores");
+                const dados = await res.json();
+                // Popula a textarea com o JSON formatado
+                document.getElementById("vendedores-json").value = JSON.stringify(dados, null, 2);
+            } catch (err) {
+                console.error("Não foi possível carregar vendedores:", err);
+                document.getElementById("vendedores-json").value = "Erro ao carregar. Verifique o servidor.";
+            }
+        }
+        
+        // CORREÇÃO 3: LÓGICA DE ENVIO MELHORADA E COM FEEDBACK
+        btnEnviar.addEventListener("click", async () => {
+            const nome = document.getElementById("nome").value;
+            const mensagem = document.getElementById("mensagem").value;
+            const contato = document.getElementById("contato").value;
+            const imagem = document.getElementById("imagem").files[0];
+            const menu = document.getElementById("menu-toggle").checked ? "on" : "off";
+            const btn1 = document.getElementById("btn1").value;
+            const btn2 = document.getElementById("btn2").value;
+            const btn3 = document.getElementById("btn3").value;
+
+            const numeros = contato.split(",").map(n => n.trim()).filter(n => n.length > 0);
+            const todosValidos = numeros.every(n => /^55\d{10,11}$/.test(n));
+
+            if (!todosValidos) {
+                statusEnvio.textContent = "❌ Um ou mais números estão em formato inválido. Use: 55+DDD+Número.";
+                statusEnvio.style.color = "red";
+                return;
+            }
+
+            if (!mensagem) {
+                statusEnvio.textContent = "❗ A mensagem não pode estar vazia.";
+                statusEnvio.style.color = "orange";
+                return;
+            }
+
+            // Inicia feedback
+            btnEnviar.disabled = true;
+            statusEnvio.textContent = "🔄 Enviando... Aguarde a resposta do servidor.";
+            statusEnvio.style.color = "blue";
+
+            const formData = new FormData();
+            formData.append("nome", nome);
+            formData.append("mensagem", mensagem);
+            formData.append("contatos", JSON.stringify(numeros));
+            formData.append("menu", menu);
+            formData.append("btn1", btn1);
+            formData.append("btn2", btn2);
+            formData.append("btn3", btn3);
+            if (imagem) formData.append("imagem", imagem);
+
+            try {
+                const resposta = await fetch("/enviar", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const resultado = await resposta.json();
+                btnEnviar.disabled = false; // Habilita o botão
+                
+                if (resultado.status === "sucesso") {
+                    const sucessos = resultado.enviados.filter(e => e.status === 'sucesso').length;
+                    const total = resultado.enviados.length;
+                    statusEnvio.textContent = `✅ Envio concluído. Sucessos: ${sucessos}/${total}`;
+                    statusEnvio.style.color = "green";
+                    
+                    // Limpar campos após sucesso
+                    document.getElementById("mensagem").value = "";
+                    document.getElementById("contato").value = "";
+                    document.getElementById("imagem").value = null;
+                } else {
+                    statusEnvio.textContent = `❌ Erro: ${resultado.mensagem}. Verifique a conexão.`;
+                    statusEnvio.style.color = "red";
+                }
+            } catch (err) {
+                btnEnviar.disabled = false;
+                statusEnvio.textContent = "❌ Falha na comunicação com o servidor. Tente novamente.";
+                statusEnvio.style.color = "red";
+                console.error("Erro no envio:", err);
+            }
+        });
+
+        document.getElementById("menu-toggle").addEventListener("change", (e) => {
+            document.getElementById("menu-config").style.display = e.target.checked ? "block" : "none";
+        });
+
+        // Lógica de salvamento de vendedores (Mantida a estrutura)
+        document.getElementById("form-vendedores").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const json = document.getElementById("vendedores-json").value;
+            const statusVendedores = document.getElementById("status-vendedores");
+
+            try {
+                JSON.parse(json); // Tenta validar o JSON antes de enviar
+                statusVendedores.textContent = "🔄 Salvando vendedores...";
+                statusVendedores.style.color = "blue";
+
+                const resposta = await fetch("/vendedores", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: json
+                });
+
+                const resultado = await resposta.json();
+                if (resultado.status === "sucesso") {
+                     statusVendedores.textContent = "✅ Vendedores salvos com sucesso!";
+                     statusVendedores.style.color = "green";
+                } else {
+                     statusVendedores.textContent = `❌ Erro: ${resultado.mensagem}`;
+                     statusVendedores.style.color = "red";
+                }
+            } catch (err) {
+                statusVendedores.textContent = "❌ Erro ao salvar. Verifique se o JSON está formatado corretamente.";
+                statusVendedores.style.color = "red";
+            }
+        });
+
+        // CORREÇÃO 4: CHAMA A FUNÇÃO DE CARREGAR VENDEDORES NA INICIALIZAÇÃO
+        carregarVendedores();
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendário de Imóveis</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { text-align: center; }
+    #calendar { max-width: 900px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    select { padding: 10px; font-size: 16px; margin-top: 20px; display: block; margin-left: auto; margin-right: auto; }
+    .reserva-btn { display: block; margin: 20px auto; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Disponibilidade dos Imóveis</h1>
+  <select id="imovelSelect">
+    <option value="casaPraia">🏖️ Casa na Praia</option>
+    <option value="apartCentro">🏙️ Apartamento no Centro</option>
+    <option value="chaleMontanha">⛰️ Chalé na Montanha</option>
+  </select>
+
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    const disponibilidade = {
+      casaPraia: ['2025-10-05', '2025-10-12', '2025-10-18'],
+      apartCentro: ['2025-10-07', '2025-10-15', '2025-10-22'],
+      chaleMontanha: ['2025-10-10', '2025-10-20', '2025-10-25']
+    };
+
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: []
+    });
+    calendar.render();
+
+    function carregarCalendario() {
+      const imovel = document.getElementById('imovelSelect').value;
+      const diasOcupados = disponibilidade[imovel];
+      const eventos = diasOcupados.map(data => ({
+        title: 'Indisponível',
+        start: data,
+        color: '#ff4d4d'
+      }));
+      calendar.removeAllEvents();
+      calendar.addEventSource(eventos);
+    }
+
+    function reservar() {
+      const imovel = document.getElementById('imovelSelect').value;
+      alert(`Você escolheu reservar o imóvel: ${imovel.replace(/([A-Z])/g, ' $1')}`);
+    }
+
+    document.getElementById('imovelSelect').addEventListener('change', carregarCalendario);
+    document.getElementById('imovelSelect').dispatchEvent(new Event('change'));
+  </script>
+</body>
+</html>
