@@ -1,0 +1,156 @@
+<!--
+10/11/25
+WRW_BigBoss
+FlavioCallega_&_Copilot
+-->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Farol Barra Flat - Disponibilidade</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+<body>
+  <h1>Farol Barra Flat - Disponibilidade</h1>
+  <p style="text-align:center;">Moderno, perto de tudo, ideal para negócios</p>
+
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+
+
+  <div id="MapsContato">
+   <div class="map-container">
+      <h2 style="text-align:center;">📍 Localização</h2>
+      <iframe
+        src=" https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.413159898338!2d-38.53093572509713!3d-13.00934106056894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x716038a60172557%3A0x264786001dccf240!2sFarol%20Barra%20Flat!5e0!3m2!1spt-BR!2sus!4v1764413238425!5m2!1spt-BR!2sus" 
+        width="100%"
+        height="300"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+   </div>
+  </div>
+
+  </div>
+   <footer>
+    &copy; 2026 Farol Barra Flat – Salvador, Bahia
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: []
+    });
+    calendar.render();
+
+    function carregarCalendario() {
+      // 🔧 Agora chamando a API do servidor Express
+      fetch('/disponibilidade/farolBarraFlat')
+        .then(res => res.json())
+        .then(diasOcupados => {
+          const hoje = new Date();
+          const diasDoMes = [];
+          for (let i = 0; i < 30; i++) {
+            const dia = new Date(hoje);
+            dia.setDate(dia.getDate() + i);
+            diasDoMes.push(dia.toISOString().split('T')[0]);
+          }
+
+          const diasDisponiveis = diasDoMes.filter(d => !diasOcupados.includes(d));
+
+          const eventosDisponiveis = diasDisponiveis.map(data => ({
+            title: 'Disponível',
+            start: data,
+            color: '#28a745'
+          }));
+
+          const eventosIndisponiveis = diasOcupados.map(data => ({
+            title: 'Indisponível',
+            start: data,
+            color: '#ff4d4d'
+          }));
+
+          calendar.removeAllEvents();
+          calendar.addEventSource([...eventosDisponiveis, ...eventosIndisponiveis]);
+        })
+        .catch(err => console.error('Erro ao carregar calendário:', err));
+    }
+
+    function reservar() {
+      const numeroWhatsApp = '5571993019981';
+      const mensagem = encodeURIComponent(`Olá! Gostaria de reservar o imóvel: Farol Barra Flat, 214`);
+      window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+    }
+
+    carregarCalendario();
+
+    // Galeria com modal mostrando todas as categorias
+    const fotos = {
+      sala: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/847942ee-69f4-430e-a81d-36c3c4b4c47f.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/5aa1fc82-ff5a-42ad-93a7-c39545dc0570.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/8079dc47-0c2f-49dd-94e8-ae7f610a1d26.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/f20ba6dd-d733-4aa5-a403-fcd8455b4aa1.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/5aaee3dc-364c-46e1-8c69-7d7815e456d2.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/d4139f66-25f1-47f8-a857-c3868fe22b22.jpeg?im_w=720",
+       
+      ],
+      Jantar: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/bd0b7e40-30bb-448f-a93b-d8fd30a2bf6b.jpeg?im_w=1200"
+      ],
+      Quarto: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/f2b858a5-d12f-40d1-8f71-bc64fc2d28dd.jpeg?im_w=1200",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/6fad7660-ec2d-445b-b89a-fc2587ce8be4.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/e00ac7b8-b73d-47e1-a59d-4747aae7bf39.jpeg?im_w=720",
+      ],
+      Banheiro: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/b13162a0-80cc-4d03-85bb-7ea1b89da673.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/cf53b66e-b573-45ae-9101-3f1f0a23942e.jpeg?im_w=720",
+      ],
+
+      Piscina: [
+      "https://a0.muscache.com/im/pictures/d55eb1ee-7e43-4a8f-8796-a7445e978814.jpg?im_w=1200",
+      "https://a0.muscache.com/im/pictures/7cf1eab8-da51-4fd9-bc1d-4d5b0658dadc.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/99773841-a46f-48be-b598-0dfe7057cc7c.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/e945b04b-2032-4a4b-af2c-b7db8cdffe46.jpg?im_w=1200",
+      ],
+    };
+
+    const modal = document.getElementById("modal");
+    const fechar = document.querySelector(".fechar");
+    const container = document.getElementById("imagens-categoria");
+
+    // Monta todas as categorias no modal
+    function montarModal() {
+      container.innerHTML = Object.entries(fotos).map(([categoria, imagens]) => {
+        const tituloFormatado = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+        return `
+          <div class="categoria-bloco">
+            <h3>${tituloFormatado}</h3>
+            <div class="categoria-imagens">
+              ${imagens.map(src => `<img src="${src}" alt="${categoria}">`).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Ao clicar em qualquer imagem da galeria, abre o modal com todas as categorias
+    document.querySelectorAll(".galeria img").forEach(img => {
+      img.addEventListener("click", () => {
+        montarModal();
+        modal.style.display = "block";
+      });
+    });
+
+    fechar.onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+  </script>
+</body>
+</html>

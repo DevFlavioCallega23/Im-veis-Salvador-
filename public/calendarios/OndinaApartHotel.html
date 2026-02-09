@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ondina Apart Hotel - Disponibilidade</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+<body>
+  <h1>Ondina Apart Hotel, 441</h1>
+  <p style="text-align:center;">Conforto e localização privilegiada em Salvador</p>
+
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+
+
+ 
+<!-- Galeria com modal -->
+   <div class="galeria">
+    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/bf5b78ca-c7db-46f5-bd03-01aecfa25e13.jpeg?im_w=1200" alt="Cozinha">
+    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/0ab79201-2663-4576-a5f8-04e723abaa62.jpeg?im_w=1200" alt="QuartoUm">
+    <img src="https://a0.muscache.com/im/pictures/5cddfebc-127e-461e-9aaf-ad9ac8d1e0fe.jpg?im_w=720" alt="Banheiro">
+    <img src="https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720" alt="Piscina">
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <span class="fechar">&times;</span>
+    <div class="modal-conteudo">
+      <div id="imagens-categoria"></div>
+    </div>
+  </div>
+
+
+  <div id="MapsContato">
+    <div class="map-container">
+      <h2 style="text-align:center;">📍 Localização</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.3954864365264!2d-38.51449412452854!3d-13.0104684605928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7160365eeff09a7%3A0x9484945906253d22!2sOndina%20Apart%20Hotel!5e0!3m2!1spt-BR!2sbr!4v1764372783699!5m2!1spt-BR!2sbr" 
+          width="100%"
+          height="300"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div> 
+     <footer>
+    &copy; 2026 Farol Barra Flat – Salvador, Bahia
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: []
+    });
+    calendar.render();
+
+    function carregarCalendario() {
+      // 🔧 Agora chamando a API do servidor Express
+      fetch('/disponibilidade/ondinaApartHotel')
+        .then(res => res.json())
+        .then(diasOcupados => {
+          const hoje = new Date();
+          const diasDoMes = [];
+          for (let i = 0; i < 30; i++) {
+            const dia = new Date(hoje);
+            dia.setDate(dia.getDate() + i);
+            diasDoMes.push(dia.toISOString().split('T')[0]);
+          }
+
+          const diasDisponiveis = diasDoMes.filter(d => !diasOcupados.includes(d));
+
+          const eventosDisponiveis = diasDisponiveis.map(data => ({
+            title: 'Disponível',
+            start: data,
+            color: '#28a745'
+          }));
+
+          const eventosIndisponiveis = diasOcupados.map(data => ({
+            title: 'Indisponível',
+            start: data,
+            color: '#ff4d4d'
+          }));
+
+          calendar.removeAllEvents();
+          calendar.addEventSource([...eventosDisponiveis, ...eventosIndisponiveis]);
+        })
+        .catch(err => console.error('Erro ao carregar calendário:', err));
+    }
+
+    function reservar() {
+      const numeroWhatsApp = '5571993019981';
+      const mensagem = encodeURIComponent(`Olá! Gostaria de reservar o imóvel: Ondina Apart Hotel, 441`);
+      window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+    }
+
+    carregarCalendario();
+
+   // Galeria com modal mostrando todas as categorias
+    const fotos = {
+      Cozinha: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/bf5b78ca-c7db-46f5-bd03-01aecfa25e13.jpeg?im_w=1200",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/a3664bc4-6500-479c-a16e-d56782bbda6e.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/5658f6ec-642e-4872-9cf4-3f6a3cc36d26.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/cba66e64-cd55-43d6-85ef-c838d61ff702.jpeg?im_w=1200",
+      ],
+      QuartoUm: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/0ab79201-2663-4576-a5f8-04e723abaa62.jpeg?im_w=1200",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/8f1280a7-1f7b-4f06-853a-f88d97b84684.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/e8eb6cfa-516a-43e8-8c83-2685fe503220.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/f2b9c864-1df3-4eb9-9689-03070fa4fa8e.jpeg?im_w=720",
+      ],
+      QuartoDois: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/b0da4b1a-5839-40e7-95fa-511887d6d9ef.jpeg?im_w=1200",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/fb74c8eb-b21a-4b18-b09c-aa742c34e30e.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/c34aa581-0a75-4bf3-8996-93a8264c7463.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/3323a661-e506-47c5-9454-4e23b2971a1c.jpeg?im_w=1200",
+      ],
+      Banheiro: [
+        "https://a0.muscache.com/im/pictures/575b7eaf-947e-42da-943d-e8754003a054.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/690bafdc-719d-4f15-a2ca-c5c1d76a4fa0.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/5cddfebc-127e-461e-9aaf-ad9ac8d1e0fe.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/388bb3c2-b071-44a6-8d0f-7d4590ddbc0b.jpg?im_w=720"
+      ],
+
+      Piscina: [
+      "https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/4866633d-8200-4753-8d94-7b2181d562a4.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/dbf6b79f-b7f7-47df-9ff9-f853edefc800.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/6b3b8703-bda9-474e-b156-3f72192b34f8.png?im_w=1200"
+      ],
+
+      Academia: [
+        "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/0ca5d6e5-8adc-442a-ba74-59cb771930e8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/98289676-c8ab-4fb1-a5cd-5f2ff6cb77c1.jpeg?im_w=720"
+      ]
+    };
+
+    const modal = document.getElementById("modal");
+    const fechar = document.querySelector(".fechar");
+    const container = document.getElementById("imagens-categoria");
+
+    // Monta todas as categorias no modal
+    function montarModal() {
+      container.innerHTML = Object.entries(fotos).map(([categoria, imagens]) => {
+        const tituloFormatado = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+        return `
+          <div class="categoria-bloco">
+            <h3>${tituloFormatado}</h3>
+            <div class="categoria-imagens">
+              ${imagens.map(src => `<img src="${src}" alt="${categoria}">`).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Ao clicar em qualquer imagem da galeria, abre o modal com todas as categorias
+    document.querySelectorAll(".galeria img").forEach(img => {
+      img.addEventListener("click", () => {
+        montarModal();
+        modal.style.display = "block";
+      });
+    });
+
+    fechar.onclick = () => modal.style.display = "none";
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+  </script>
+</body>
+</html>

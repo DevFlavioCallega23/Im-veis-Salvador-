@@ -1,0 +1,30 @@
+{
+  "name": "calendario",
+  "version": "1.0.0",
+  "description": "Script para integração com calendário via ICS",
+  "main": "app.js",
+ "scripts": {
+  "start": "node app.js",
+  "sync": "node sincronizador.js"
+},
+  "keywords": [
+    "calendário",
+    "ical",
+    "ics",
+    "node",
+    "techbuy",
+    "airbnb",
+    "google calendar"
+  ],
+  "author": "Flavio Callega dos Santos",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "googleapis": "^164.1.0",
+    "ical": "^0.8.0",
+    "node-ical": "^0.22.1"
+  }
+}

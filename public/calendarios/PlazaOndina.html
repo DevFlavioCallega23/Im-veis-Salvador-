@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>The Plaza Ondina - Disponibilidade</title>
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+<body>
+
+  <!-- Título e descrição -->
+  <h1>The Plaza Ondina - Disponibilidade</h1>
+  <!--
+  <p style="text-align:center;">
+    Aconchego de Apartamento com Serviço de Hotel no coração de Ondina<br>
+    Quarto e sala com ar condicionado<br>
+    1 Cama de casal e 1 Sofá Cama
+  </p>
+-->
+
+  <!-- Galeria estilo Airbnb -->
+  <div class="galeria-airbnb">
+    <!-- Foto principal -->
+    <div class="foto-principal">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/37d184a6-0d79-4f63-aecf-b3a647b85cb1.jpeg?im_w=1200" alt="Exterior">
+    </div>
+
+    <!-- Fotos menores -->
+    <div class="fotos-laterais">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/8b18a0a9-6016-4cd3-a1b7-a9ff038cd836.jpeg?im_w=720" alt="Sala">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/4593ed4a-3e9e-43e6-91fe-cd24aecb5432.jpeg?im_w=720" alt="Quarto">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/e6f185f0-2b51-4ebd-94c7-0a2413ed2070.jpeg?im_w=1200" alt="Banheiro">
+      
+      <!-- Última foto com overlay -->
+      <div class="foto-com-overlay" onclick="abrirModal()">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/10c87f2d-c380-44a9-bdec-3c51b9ad7184.jpeg?im_w=720" alt="Exterior 2">
+        <div class="overlay-text">Mostrar mais fotos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal único -->
+  <div id="modal" class="modal">
+    <span class="fechar">&times;</span>
+    <div class="modal-conteudo">
+      <div id="imagens-categoria"></div>
+    </div>
+  </div>
+
+  <!-- Calendário -->
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button> 
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+
+  <!-- Mapa -->
+  <div id="MapsContato">
+    <div class="map-container">
+      <h2 style="text-align:center;">📍 Localização</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.4015611729433!2d-38.511375624528796!3d-13.010080960584999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7160367adfcafbf%3A0x203d45c951927b7a!2sThe%20Plaza!5e0!3m2!1spt-BR!2sbr!4v1764373071741!5m2!1spt-BR!2sbr"
+        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Farol Barra Flat – Salvador, Bahia
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script>
+    // Calendário
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'pt-br',
+      events: []
+    });
+    calendar.render();
+
+    function carregarCalendario() {
+      fetch('/disponibilidade/thePlazaOndina')
+        .then(res => res.json())
+        .then(diasOcupados => {
+          const hoje = new Date();
+          const diasDoMes = [];
+          for (let i = 0; i < 30; i++) {
+            const dia = new Date(hoje);
+            dia.setDate(dia.getDate() + i);
+            diasDoMes.push(dia.toISOString().split('T')[0]);
+          }
+
+          const diasDisponiveis = diasDoMes.filter(d => !diasOcupados.includes(d));
+
+          const eventosDisponiveis = diasDisponiveis.map(data => ({
+            title: 'Disponível',
+            start: data,
+            color: '#28a745'
+          }));
+
+          const eventosIndisponiveis = diasOcupados.map(data => ({
+            title: 'Indisponível',
+            start: data,
+            color: '#ff4d4d'
+          }));
+
+          calendar.removeAllEvents();
+          calendar.addEventSource([...eventosDisponiveis, ...eventosIndisponiveis]);
+        })
+        .catch(err => console.error('Erro ao carregar calendário:', err));
+    }
+
+    function reservar() {
+      const numeroWhatsApp = '5571993019981';
+      const mensagem = encodeURIComponent(`Olá! Gostaria de reservar o imóvel: The Plaza Ondina`);
+      window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+    }
+
+    carregarCalendario();
+
+  // Galeria com modal mostrando todas as categorias
+  const fotos = {
+    sala: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/8b18a0a9-6016-4cd3-a1b7-a9ff038cd836.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/d82b3263-5e36-42be-8d24-9f527b5edcf2.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/eaa5564d-926f-41ec-8999-421c3be861f1.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/80e76741-f0e9-45b6-8767-72fe45d1ac5c.jpeg?im_w=1200"
+    ],
+    quarto: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/4593ed4a-3e9e-43e6-91fe-cd24aecb5432.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/e34901c8-cd17-4142-bab5-cdbdbc007ceb.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/01d733af-9fa2-4f11-be52-52b7dfc7559a.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/1b3c75c6-16e5-4a86-8670-8cc73dcca05a.jpeg?im_w=720"
+    ],
+    banheiro: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/e6f185f0-2b51-4ebd-94c7-0a2413ed2070.jpeg?im_w=1200"
+    ],
+    exterior: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/0465a487-6bf1-4ee5-ad9e-9b5104f1d997.jpeg?im_w=1200",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/10c87f2d-c380-44a9-bdec-3c51b9ad7184.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/25d30c3f-6b62-47d1-a187-6f378a9edd18.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/c43c0e8e-a42f-4293-9b87-99e835a9df42.jpeg?im_w=1200",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/37d184a6-0d79-4f63-aecf-b3a647b85cb1.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1544328946353777106/original/e3409008-d7a4-483b-9388-51f5dbf8017c.jpeg?im_w=720"
+    ]
+  };
+
+  const modal = document.getElementById("modal");
+  const fechar = document.querySelector(".fechar");
+  const container = document.getElementById("imagens-categoria");
+
+  // Monta todas as categorias no modal
+  function montarModal() {
+    container.innerHTML = Object.entries(fotos).map(([categoria, imagens]) => {
+      const tituloFormatado = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+      return `
+        <div class="categoria-bloco">
+          <h3>${tituloFormatado}</h3>
+          <div class="categoria-imagens">
+            ${imagens.map(src => `<img src="${src}" alt="${categoria}">`).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // Função para abrir modal
+  function abrirModal() {
+    montarModal();
+    modal.style.display = "block";
+  }
+
+  // Ao clicar em qualquer imagem da galeria Airbnb, abre o modal
+  document.querySelectorAll(".galeria-airbnb img").forEach(img => {
+    img.addEventListener("click", () => {
+      abrirModal();
+    });
+  });
+
+  // Botão fechar
+  fechar.onclick = () => modal.style.display = "none";
+  window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
+</script>
+
+</body>
+</html>
