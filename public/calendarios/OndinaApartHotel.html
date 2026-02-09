@@ -7,21 +7,27 @@
   <link rel="stylesheet" href="../style.css" type="text/css">
 </head>
 <body>
+
   <h1>Ondina Apart Hotel, 441</h1>
+  <!--
   <p style="text-align:center;">Conforto e localização privilegiada em Salvador</p>
+  -->
+  <!-- Galeria estilo Airbnb -->
+  <div class="galeria-airbnb">
+    <div class="foto-principal">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/bf5b78ca-c7db-46f5-bd03-01aecfa25e13.jpeg?im_w=1200" alt="Cozinha">
+    </div>
 
-  <div id="calendar"></div>
-  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
-  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+    <div class="fotos-laterais">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/0ab79201-2663-4576-a5f8-04e723abaa62.jpeg?im_w=720" alt="Quarto 1">
+      <img src="https://a0.muscache.com/im/pictures/5cddfebc-127e-461e-9aaf-ad9ac8d1e0fe.jpg?im_w=720" alt="Banheiro">
+      <img src="https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720" alt="Piscina">
 
-
- 
-<!-- Galeria com modal -->
-   <div class="galeria">
-    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/bf5b78ca-c7db-46f5-bd03-01aecfa25e13.jpeg?im_w=1200" alt="Cozinha">
-    <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/0ab79201-2663-4576-a5f8-04e723abaa62.jpeg?im_w=1200" alt="QuartoUm">
-    <img src="https://a0.muscache.com/im/pictures/5cddfebc-127e-461e-9aaf-ad9ac8d1e0fe.jpg?im_w=720" alt="Banheiro">
-    <img src="https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720" alt="Piscina">
+      <div class="foto-com-overlay" onclick="abrirModal()">
+        <img src="https://a0.muscache.com/im/pictures/4866633d-8200-4753-8d94-7b2181d562a4.jpg?im_w=720" alt="Piscina">
+        <div class="overlay-text">Mostrar mais fotos</div>
+      </div>
+    </div>
   </div>
 
   <!-- Modal -->
@@ -32,11 +38,16 @@
     </div>
   </div>
 
+  <!-- Calendário -->
+  <div id="calendar"></div>
+  <button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
 
+  <!-- Mapa -->
   <div id="MapsContato">
     <div class="map-container">
       <h2 style="text-align:center;">📍 Localização</h2>
-        <iframe
+       <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.3954864365264!2d-38.51449412452854!3d-13.0104684605928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7160365eeff09a7%3A0x9484945906253d22!2sOndina%20Apart%20Hotel!5e0!3m2!1spt-BR!2sbr!4v1764372783699!5m2!1spt-BR!2sbr" 
           width="100%"
           height="300"
@@ -45,64 +56,55 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-      </div>
-    </div> 
-     <footer>
+    </div>
+  </div>
+
+  <footer>
     &copy; 2026 Farol Barra Flat – Salvador, Bahia
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script>
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
+    const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
       initialView: 'dayGridMonth',
-      locale: 'pt-br',
-      events: []
+      locale: 'pt-br'
     });
     calendar.render();
 
     function carregarCalendario() {
-      // 🔧 Agora chamando a API do servidor Express
       fetch('/disponibilidade/ondinaApartHotel')
         .then(res => res.json())
         .then(diasOcupados => {
           const hoje = new Date();
-          const diasDoMes = [];
+          const eventos = [];
+
           for (let i = 0; i < 30; i++) {
-            const dia = new Date(hoje);
-            dia.setDate(dia.getDate() + i);
-            diasDoMes.push(dia.toISOString().split('T')[0]);
+            const d = new Date(hoje);
+            d.setDate(d.getDate() + i);
+            const data = d.toISOString().split('T')[0];
+
+            eventos.push({
+              title: diasOcupados.includes(data) ? 'Indisponível' : 'Disponível',
+              start: data,
+              color: diasOcupados.includes(data) ? '#ff4d4d' : '#28a745'
+            });
           }
 
-          const diasDisponiveis = diasDoMes.filter(d => !diasOcupados.includes(d));
-
-          const eventosDisponiveis = diasDisponiveis.map(data => ({
-            title: 'Disponível',
-            start: data,
-            color: '#28a745'
-          }));
-
-          const eventosIndisponiveis = diasOcupados.map(data => ({
-            title: 'Indisponível',
-            start: data,
-            color: '#ff4d4d'
-          }));
-
           calendar.removeAllEvents();
-          calendar.addEventSource([...eventosDisponiveis, ...eventosIndisponiveis]);
-        })
-        .catch(err => console.error('Erro ao carregar calendário:', err));
+          calendar.addEventSource(eventos);
+        });
     }
 
     function reservar() {
-      const numeroWhatsApp = '5571993019981';
-      const mensagem = encodeURIComponent(`Olá! Gostaria de reservar o imóvel: Ondina Apart Hotel, 441`);
-      window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+      window.open(
+        'https://wa.me/5571993019981?text=' +
+        encodeURIComponent('Olá! Gostaria de reservar o imóvel: Ondina Apart Hotel, 441'),
+        '_blank'
+      );
     }
 
     carregarCalendario();
 
-   // Galeria com modal mostrando todas as categorias
     const fotos = {
       Cozinha: [
       "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6OTg2Mjg4MzkxMzczMjcyNDEw/original/bf5b78ca-c7db-46f5-bd03-01aecfa25e13.jpeg?im_w=1200",
@@ -143,34 +145,27 @@
     };
 
     const modal = document.getElementById("modal");
-    const fechar = document.querySelector(".fechar");
     const container = document.getElementById("imagens-categoria");
 
-    // Monta todas as categorias no modal
     function montarModal() {
-      container.innerHTML = Object.entries(fotos).map(([categoria, imagens]) => {
-        const tituloFormatado = categoria.charAt(0).toUpperCase() + categoria.slice(1);
-        return `
-          <div class="categoria-bloco">
-            <h3>${tituloFormatado}</h3>
-            <div class="categoria-imagens">
-              ${imagens.map(src => `<img src="${src}" alt="${categoria}">`).join("")}
-            </div>
+      container.innerHTML = Object.entries(fotos).map(([cat, imgs]) => `
+        <div class="categoria-bloco">
+          <h3>${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+          <div class="categoria-imagens">
+            ${imgs.map(src => `<img src="${src}">`).join("")}
           </div>
-        `;
-      }).join("");
+        </div>
+      `).join("");
     }
 
-    // Ao clicar em qualquer imagem da galeria, abre o modal com todas as categorias
-    document.querySelectorAll(".galeria img").forEach(img => {
-      img.addEventListener("click", () => {
-        montarModal();
-        modal.style.display = "block";
-      });
-    });
+    function abrirModal() {
+      montarModal();
+      modal.style.display = "block";
+    }
 
-    fechar.onclick = () => modal.style.display = "none";
+    document.querySelector(".fechar").onclick = () => modal.style.display = "none";
     window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
   </script>
+
 </body>
 </html>
