@@ -1,28 +1,16 @@
-/*
-  calendar.js
-  Responsável por criar e carregar o calendário de disponibilidade
-*/
-
 function criarCalendario({ elementId, endpoint, whatsapp }) {
   const calendarEl = document.getElementById(elementId);
-
-  if (!calendarEl) {
-    console.error('❌ Elemento do calendário não encontrado:', elementId);
-    return;
-  }
+  if (!calendarEl) return;
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     locale: 'pt-br',
     height: 'auto',
-    selectable: false,
-
     eventClick(info) {
       if (info.event.title === 'Disponível' && whatsapp) {
         const data = info.event.startStr;
         const msg = `Olá! Tenho interesse em reservar o dia ${data}.`;
-        const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`;
-        window.open(url, '_blank');
+        window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
       }
     }
   });
@@ -33,36 +21,29 @@ function criarCalendario({ elementId, endpoint, whatsapp }) {
     .then(res => res.json())
     .then(diasOcupados => {
       const hoje = new Date();
-      const meses = 6;
       const dias = [];
 
-      for (let i = 0; i < meses * 31; i++) {
-        const d = new Date(hoje);
-        d.setDate(d.getDate() + i);
-        dias.push(d.toISOString().split('T')[0]);
+      // Gera 6 meses de calendário
+      for (let i = 0; i < 180; i++) {
+        const d = new Date();
+        d.setDate(hoje.getDate() + i);
+        
+        // Formata como YYYY-MM-DD local
+        const dataLocal = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        dias.push(dataLocal);
       }
 
       const eventosDisponiveis = dias
         .filter(d => !diasOcupados.includes(d))
-        .map(d => ({
-          title: 'Disponível',
-          start: d,
-          color: '#28a745'
-        }));
+        .map(d => ({ title: 'Disponível', start: d, color: '#28a745' }));
 
       const eventosIndisponiveis = diasOcupados.map(d => ({
-        title: 'Indisponível',
+        title: 'Ocupado',
         start: d,
-        color: '#dc3545'
+        color: '#dc3545',
+        display: 'background' // Fica mais elegante visualmente
       }));
 
-      calendar.removeAllEvents();
-      calendar.addEventSource([
-        ...eventosDisponiveis,
-        ...eventosIndisponiveis
-      ]);
-    })
-    .catch(err => {
-      console.error('❌ Erro ao carregar calendário:', err);
+      calendar.addEventSource([...eventosDisponiveis, ...eventosIndisponiveis]);
     });
 }
