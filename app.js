@@ -21,7 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // MAPA DE CALENDÁRIOS (ICS)
 // ===============================
 const calendarios = {
-  casaPraia: '',
   farolBarraFlat: "https://www.airbnb.com.br/calendar/ical/1410986458634773223.ics?t=e1273efb853e40b8b6b97e1ff196f189",
   ondinaApartHotel: "https://www.airbnb.com.br/calendar/ical/986288391373272410.ics?t=cc4351d9d0fe477582dfcaf0eb6d6678",
   smartConvencoes: "https://www.airbnb.com.br/calendar/ical/1320242268460204756.ics?t=e5b640cb9c234cf8bb622353c9a640e8",
