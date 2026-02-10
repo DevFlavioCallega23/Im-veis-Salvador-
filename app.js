@@ -21,10 +21,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // MAPA DE CALENDÁRIOS (ICS)
 // ===============================
 const calendarios = {
-  casaPraia: 'https://www.airbnb.com.br/calendar/ical/41662018.ics?s=b8cedbfaf02c937a5ac60fb776cabbcb',
-  farolBarraFlat: "https://www.airbnb.com.br/calendar/ical/1410986458634773223.ics?s=fa88a81f2866e81b17e7288342015f0d",
-  ondinaApartHotel: "https://www.airbnb.com.br/calendar/ical/986288391373272410.ics?s=50fed0ae6384b400278ddcbaae39f438",
-  smartConvencoes: "https://www.airbnb.com.br/calendar/ical/1320242268460204756.ics?t=e5b640cb9c234cf8bb622353c9a640e8"
+  casaPraia: '',
+  farolBarraFlat: "https://www.airbnb.com.br/calendar/ical/1410986458634773223.ics?t=e1273efb853e40b8b6b97e1ff196f189",
+  ondinaApartHotel: "https://www.airbnb.com.br/calendar/ical/986288391373272410.ics?t=cc4351d9d0fe477582dfcaf0eb6d6678",
+  smartConvencoes: "https://www.airbnb.com.br/calendar/ical/1320242268460204756.ics?t=e5b640cb9c234cf8bb622353c9a640e8",
+  PlazaOndina: "https://www.airbnb.com.br/calendar/ical/1544328946353777106.ics?t=311c06c0f8854ad9abfc306706a0994b"
 
   // futuros imóveis:
   // barraFlat: 'https://link-do-ics.ics',
