@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Farol Barra Flat - Disponibilidade</title>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+  <!-- CSS global -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <h1>Farol Barra Flat, 214</h1>
+
+  <!-- Galeria estilo Airbnb -->
+  <div class="galeria-airbnb">
+    <div class="foto-principal">
+      <img src="https://a0.muscache.com/im/pictures/7cf1eab8-da51-4fd9-bc1d-4d5b0658dadc.jpg?im_w=720" alt="Sala">
+    </div>
+
+    <div class="fotos-laterais">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/7d325dcd-8166-4ff7-9e3c-5b911928fa59.jpeg?im_w=720">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/484e16b2-0873-499d-abb6-6b0b6de2510b.jpeg?im_w=720">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/dbdff849-79c1-4948-ae39-ab97781ab529.jpeg?im_w=720">
+
+      <div class="foto-com-overlay">
+        <img src="https://a0.muscache.com/im/pictures/d55eb1ee-7e43-4a8f-8796-a7445e978814.jpg?im_w=720">
+        <div class="overlay-text">Mostrar mais fotos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal da galeria -->
+  <div id="modal" class="modal">
+    <span class="fechar">&times;</span>
+    <div class="modal-conteudo">
+      <div id="imagens-categoria"></div>
+    </div>
+  </div>
+
+  <!-- Calendário -->
+  <div id="calendar"></div>
+
+  <!-- Botões -->
+  <button class="reserva-btn">Reservar imóvel</button>
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+
+  <!-- Mapa -->
+  <div id="MapsContato">
+    <div class="map-container">
+      <h2 style="text-align:center;">📍 Localização</h2>
+       <iframe
+        src=" https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.413159898338!2d-38.53093572509713!3d-13.00934106056894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x716038a60172557%3A0x264786001dccf240!2sFarol%20Barra%20Flat!5e0!3m2!1spt-BR!2sus!4v1764413238425!5m2!1spt-BR!2sus" 
+        width="100%"
+        height="300"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Farol Barra Flat – Salvador, Bahia
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- Scripts padronizados -->
+  <script src="../js/calendar.js"></script>
+  <script src="../js/galeria.js"></script>
+  <script src="../js/reserva.js"></script>
+
+  <script>
+    // 🔹 Calendário
+    criarCalendario({
+      elementId: 'calendar',
+      endpoint: '/disponibilidade/farolBarraFlat'
+    });
+
+    // 🔹 Galeria
+    iniciarGaleria({
+      SalaCozinha: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/8595737b-702a-45b6-a05f-203d9ced40ff.jpeg?im_w=720",  
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/a24a9b9d-0ff5-4f73-8ccb-43087ee86f1e.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/989ba067-aaf2-4446-bee6-93890402f1d8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/6cf2bfb1-bfe8-445e-a7ba-492024a40b6a.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/c1e990ba-d85c-4549-8cdb-340d07e63cb7.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/93df1d32-3935-41da-b6e9-4c185da48621.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/dbdff849-79c1-4948-ae39-ab97781ab529.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/a5e0a703-a570-4f79-9634-2a74711b55a3.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/f57a83d2-19d0-47aa-953c-859df0802531.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/fcdc5d1a-5314-42e9-8dbf-dcfdcd4874bc.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/484e16b2-0873-499d-abb6-6b0b6de2510b.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/8000f78e-2847-4650-942e-3a545690a39c.jpeg?im_w=720",
+      ],
+      QuartoMaior: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/7d325dcd-8166-4ff7-9e3c-5b911928fa59.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/00153a37-1665-4119-8fb0-b7609968c82b.png?im_w=720",
+       
+      ],
+      QuartoMenor: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/9e03994b-2df8-4aaf-9772-5031de27e684.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/7cf64d62-b900-43b4-acfb-5d6e85a9dc8b.png?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/cff2f1ba-339f-4878-93b1-a0e5ec727ede.png?im_w=720",
+      ],
+      Banheiro: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/b13162a0-80cc-4d03-85bb-7ea1b89da673.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDE2NjIwMTg%3D/original/cf53b66e-b573-45ae-9101-3f1f0a23942e.jpeg?im_w=720",
+      ],
+      Cozinha: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-41662018/original/d2e33da5-649d-4b1a-8ce5-800ec4322a4b.jpeg?im_w=720",
+      ],
+
+      Piscina: [
+      "https://a0.muscache.com/im/pictures/d55eb1ee-7e43-4a8f-8796-a7445e978814.jpg?im_w=1200",
+      "https://a0.muscache.com/im/pictures/7cf1eab8-da51-4fd9-bc1d-4d5b0658dadc.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/99773841-a46f-48be-b598-0dfe7057cc7c.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/e945b04b-2032-4a4b-af2c-b7db8cdffe46.jpg?im_w=1200",
+      ] 
+    });
+
+    
+
+    // 🔹 Reserva
+    configurarReserva({
+      telefone: '5571993019981',
+      mensagem: 'Farol Barra Flat, 214'
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title id="tituloPagina"></title>
+
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1 id="nomeImovel"></h1>
+<p id="descricaoImovel"></p>
+
+<div id="galeria"></div>
+
+<div id="calendar"></div>
+
+<button class="reserva-btn" onclick="reservar()">Reservar imóvel</button>
+<a href="index.html" class="reserva-btn voltar-btn">← Voltar</a>
+
+<div id="MapsContato"></div>
+
+<footer>
+  &copy; 2026 Farol Barra Flat – Salvador, Bahia
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<script src="js/galeria.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/reserva.js"></script>
+
+<!-- DADOS DO IMÓVEL -->
+<script src="data/smartConvencoes.js"></script>
+
+</body>
+</html>
