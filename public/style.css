@@ -398,7 +398,43 @@ PAGINA IMOVEIS / INICIO
 }
 
 
+.topo {
+  display: flex;
+  align-items: center;       /* alinha verticalmente */
+  justify-content: space-between; /* separa h3 à esquerda e h1 ao centro/direita */
+  padding: 10px 20px;
+}
 
+.topo h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #444;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 1.8em;
+  text-align: center;
+  flex: 1; /* força o h1 a ocupar espaço central */
+}
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;               /* espaço entre ícone e texto */
+  font-size: 1.2em;
+  font-weight: bold;
+  text-decoration: none;  /* remove sublinhado */
+  color: black;           /* texto sempre preto */
+}
+
+.home-btn i {
+  color: #ff385c;         /* cor inicial do ícone */
+  transition: color 0.3s ease;
+}
+
+.home-btn:hover i {
+  color: #e03150;         /* cor do ícone no hover */
+}
 
 /* ==================================================
    FIM — PÁGINA DO IMÓVEL | MAPA E RESERVA
