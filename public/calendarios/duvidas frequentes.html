@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #f4f1ec; color: #2c2c2c; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 480px; margin: auto; padding: 20px 15px; }
+        header { text-align: center; margin-bottom: 30px; padding-top: 20px; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 32px; letter-spacing: 1px; margin-bottom: 10px; color: #1a1a1a; }
+        header p { color: #7a7a7a; font-size: 14px; }
+        .divider { width: 60px; height: 2px; background: #c8a96a; margin: 15px auto; }
+        .card { background: #ffffff; padding: 22px; border-radius: 18px; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .card h2 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; color: #1a1a1a; }
+        .card ul { padding-left: 18px; line-height: 1.6; font-size: 14px; }
+        .highlight { background: #faf7f2; padding: 14px; border-radius: 10px; margin-top: 14px; border-left: 4px solid #c8a96a; font-size: 13px; line-height: 1.5; }
+        .tag { display: inline-block; background: #c8a96a; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; }
+        .cta { text-align: center; margin: 25px 0; }
+        .btn { background: #c8a96a; color: white !important; padding: 18px 20px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 600; display: block; transition: 0.3s; box-shadow: 0 4px 15px rgba(200, 169, 106, 0.3); }
+        .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+        .img-grid img { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; }
+        .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #8a8a8a; padding-bottom: 40px; }
+        .rating-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .rating-item { background: #fafafa; padding: 10px; border-radius: 10px; border: 1px solid #eee; flex: 1; min-width: 80px; text-align: center; }
+        .rating-item strong { display: block; font-size: 14px; }
+        .rating-item span { font-size: 10px; color: #777; }
+        .review { border-bottom: 1px solid #f0f0f0; padding: 12px 0; }
+        .review:last-child { border: none; }
+        .review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .review-name { font-size: 13px; font-weight: 600; }
+        .review-date { font-size: 11px; color: #999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sua Melhor Experiência em Salvador</h1>
+            <div class="divider"></div>
+            <p>Hospitalidade, excelente localização, Conforto, elegância e praticidade em Salvador</p>
+        </header>
+
+        <div class="cta">
+            <a href="https://wa.me/5571993019981?text=Olá! Vi sua página de Hospedagem Boutique e gostaria de consultar disponibilidade." class="btn">
+                📱 Reservar via WhatsApp (Sem Taxas)
+            </a>
+        </div>
+
+        <div class="card">
+            <span class="tag">Horários</span>
+            <h2>Check-in e Check-out</h2>
+            <p style="font-size: 14px; margin: 5px 0;"><strong>Entrada:</strong> A partir das 14 horas</p>
+            <p style="font-size: 14px; margin: 5px 0;"><strong>Saída:</strong> Até 12 horas</p>
+        </div>
+
+        <div class="card">
+            <span class="tag">Incluso</span>
+            <h2>Comodidades Premium</h2>
+            <ul>
+                <li>Piscina</li>
+                <li>1 vaga de garagem coberta</li>
+                <li>Roupa de cama e banho</li>
+                <li>Ar condicionado</li>
+                <li>Cozinha completa equipada</li>
+                <li>Wi-Fi gratuito</li>
+                <li>Serviço de camareira diário*</li>
+            </ul>
+            <div class="highlight">
+                *Danos ou sujeiras extremas em estofados/enxoval poderão gerar taxa adicional.
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="tag">Pagamento</span>
+            <h2>Condições e Reserva</h2>
+            <p style="font-size: 14px; line-height: 1.6;">
+                • Paga 50% via Pix para confirmação imediata<br>
+                • Pagamento de 50% restante no momento do check-in<br>
+                • Cartão de crédito: acréscimo de 18%
+            </p>
+            <div class="highlight">
+                Para reservar, tenha em mãos:<br>
+                Nome completo e comprovante.
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="tag">Localização</span>
+            <h2>Explore Salvador</h2>
+            <p style="font-size: 14px;">O melhor da cultura e lazer a poucos minutos de você.</p>
+            <div class="img-grid">
+                <img src="https://donaviagem.com/wp-content/uploads/2023/06/Farol-da-Barra-Salvador-Bahia-Dona-Viagem.webp" alt="Farol da Barra">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/43/ac/8f/pelourinho.jpg?w=700&h=400&s=1" alt="Pelourinho">
+                <img src="https://viagemeturismo.abril.com.br/wp-content/uploads/2024/05/Elevador_Lacerda_Salvador_Bahia_2019-9465.jpg?quality=70&strip=info&w=1024" alt="Elevador Lacerda">
+                <img src="hhttps://lh3.googleusercontent.com/FrwYGeLlIc-DiQ_YlkxcGET5iofszzTZNUW8Q8QkJeWR7mWD0rVbaKR6Yg57iWIicw_mvfHJf1fDdNTAKQ=w1905" alt="Praia">
+                <img src="https://www.bahianoticias.com.br/fotos/hall_noticias/5118/mg/Snapinsta.app_387519523_1533968990718215_4980642095772288589_n_1080.jpg" alt="Restaurante">
+            </div>
+            <div class="highlight">
+                <strong>Dica:</strong> Oferecemos grátis um roteiro exclusivo com os melhores restaurantes e pontos turísticos próximos.
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="tag">Airbnb</span>
+            <h2>Avaliações Reais</h2>
+            <div class="rating-grid">
+                <div class="rating-item"><strong>4.91</strong><span>Nota Geral</span></div>
+                <div class="rating-item"><strong>+200</strong><span>Hóspedes</span></div>
+                <div class="rating-item"><strong>4.9</strong><span>Limpeza</span></div>
+            </div>
+            
+            <div class="review">
+                <div class="review-meta"><span class="review-name">Mariana</span><span class="review-date">Outubro 2025</span></div>
+                <p style="font-size: 13px; margin: 5px 0;">⭐⭐⭐⭐⭐ "Apartamento impecável, localização perfeita e atendimento rápido."</p>
+            </div>
+            <div class="review">
+                <div class="review-meta"><span class="review-name">Carlos</span><span class="review-date">Setembro 2025</span></div>
+                <p style="font-size: 13px; margin: 5px 0;">⭐⭐⭐⭐⭐ "Melhor custo-benefício da região. Muito limpo e organizado."</p>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="https://wa.me/5571993019981?text=Olá! Gostaria de consultar a disponibilidade." class="btn">
+                Consultar Disponibilidade Agora
+            </a>
+        </div>
+
+        <div class="footer">
+            Desejamos uma estadia sofisticada e inesquecível ✨
+        </div>
+    </div>
+</body>
+</html>
