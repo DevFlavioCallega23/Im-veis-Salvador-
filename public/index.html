@@ -9,13 +9,51 @@ WRW_BigBoss
   <meta charset="UTF-8">
   <title>Hospedagem em Salvador</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos adicionais para o botão de dúvidas e ajustes mobile */
+    .btn-duvidas {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: #c8a96a; /* Tom dourado boutique que transmite luxo e leveza */
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(200, 169, 106, 0.2);
+    }
+    
+    .btn-duvidas:hover {
+      background-color: #b89655;
+      transform: translateY(-2px);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    /* Otimização para visualização em Salvador via dispositivos móveis */
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+      .card {
+        margin-bottom: 25px;
+      }
+    }
+  </style>
 </head>
 <body class="homepage">
   <header>
     <h1>Hospedagem em Salvador @farolbarraflat</h1>
     <p>Escolha seu destino e veja a disponibilidade</p>
+    
     <a href="https://im-veis-salvador.vercel.app/calendarios/duvidas.html" class="btn-duvidas">
-      Dúvidas Frequentes
+      ❓ Dúvidas Frequentes
     </a>
   </header>
 
