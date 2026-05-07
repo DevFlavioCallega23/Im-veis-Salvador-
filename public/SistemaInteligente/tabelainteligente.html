@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compare os Kits - Automação Inteligente</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Montserrat',sans-serif;
+      background:#020817;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .container{
+      width:100%;
+      max-width:1400px;
+      margin:auto;
+      padding:40px 20px 80px;
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .hero h1{
+      font-size:64px;
+      font-weight:800;
+      line-height:1;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      color:#38bdf8;
+      font-size:22px;
+      font-weight:600;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-top:50px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,#071327,#06101f);
+      border:1px solid rgba(59,130,246,.35);
+      border-radius:28px;
+      overflow:hidden;
+      transition:.3s;
+      position:relative;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+    }
+
+    .card-top{
+      padding:30px 25px 20px;
+      text-align:center;
+    }
+
+    .number{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      border:3px solid #3b82f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:28px;
+      margin:auto auto 20px;
+      color:#fff;
+    }
+
+    .purple .number{
+      border-color:#a855f7;
+    }
+
+    .card h2{
+      font-size:34px;
+      margin-bottom:20px;
+      font-weight:800;
+    }
+
+    .sensor{
+      width:180px;
+      margin:20px auto;
+      display:block;
+      filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));
+    }
+
+    .price{
+      background:linear-gradient(90deg,#1d4ed8,#2563eb);
+      text-align:center;
+      padding:22px;
+      font-size:52px;
+      font-weight:800;
+    }
+
+    .purple .price{
+      background:linear-gradient(90deg,#7c3aed,#9333ea);
+    }
+
+    .price span{
+      font-size:28px;
+    }
+
+    .content{
+      padding:30px;
+    }
+
+    ul{
+      list-style:none;
+      margin-bottom:30px;
+    }
+
+    ul li{
+      margin-bottom:16px;
+      padding-left:26px;
+      position:relative;
+      color:#e2e8f0;
+      line-height:1.5;
+    }
+
+    ul li:before{
+      content:'•';
+      position:absolute;
+      left:0;
+      color:#38bdf8;
+      font-size:24px;
+    }
+
+    .purple ul li:before{
+      color:#c084fc;
+    }
+
+    .info-box{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:25px;
+      margin-top:20px;
+    }
+
+    .info-title{
+      color:#38bdf8;
+      font-weight:700;
+      margin-bottom:10px;
+      font-size:18px;
+    }
+
+    .purple .info-title{
+      color:#c084fc;
+    }
+
+    .info-text{
+      color:#cbd5e1;
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-top:90px;
+      margin-bottom:40px;
+    }
+
+    .section-title h3{
+      font-size:44px;
+      font-weight:800;
+    }
+
+    .advantages{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+
+    .advantage-card{
+      background:#071327;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:30px;
+    }
+
+    .advantage-card h4{
+      font-size:22px;
+      margin-bottom:15px;
+      color:#38bdf8;
+    }
+
+    .advantage-card p{
+      color:#cbd5e1;
+      line-height:1.6;
+    }
+
+    .cta{
+      margin-top:80px;
+      text-align:center;
+      padding:70px 30px;
+      background:linear-gradient(135deg,#1d4ed8,#7c3aed);
+      border-radius:30px;
+    }
+
+    .cta h2{
+      font-size:48px;
+      margin-bottom:20px;
+      font-weight:800;
+    }
+
+    .cta p{
+      font-size:20px;
+      margin-bottom:35px;
+      color:#e2e8f0;
+    }
+
+    .cta a{
+      display:inline-block;
+      background:white;
+      color:#111827;
+      text-decoration:none;
+      padding:18px 42px;
+      border-radius:16px;
+      font-weight:700;
+      font-size:20px;
+      transition:.3s;
+    }
+
+    .cta a:hover{
+      transform:scale(1.05);
+    }
+
+    footer{
+      text-align:center;
+      margin-top:60px;
+      color:#64748b;
+      font-size:14px;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:42px;
+      }
+
+      .hero p{
+        font-size:18px;
+      }
+
+      .card h2{
+        font-size:28px;
+      }
+
+      .price{
+        font-size:40px;
+      }
+
+      .cta h2{
+        font-size:34px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>COMPARE OS KITS</h1>
+    <p>Economize, Evite desperdício de energia</p>
+  </section>
+
+  <section class="cards">
+
+    <!-- KIT 1 -->
+    <div class="card">
+
+      <div class="card-top">
+
+        <div class="number">1</div>
+
+        <h2>Kit Básico Wi-Fi</h2>
+
+        <img class="sensor" src="https://i.imgur.com/v5mQx1Q.png">
+
+      </div>
+
+      <div class="price">
+        <span>R$</span> 545
+      </div>
+
+      <div class="content">
+
+        <ul>
+          <li>1 Sensor de Presença 5.8G Wi-Fi</li>
+          <li>1 Controle Inteligente</li>
+          <li>Instalação física</li>
+          <li>Configuração</li>
+        </ul>
+
+        <div class="info-box">
+          <div class="info-title">DESTAQUE</div>
+          <div class="info-text">
+            Detecta pequenos movimentos e oferece excelente custo-benefício.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">O QUE PRECISA?</div>
+          <div class="info-text">
+            Ponto de energia e Internet.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- KIT 2 -->
+    <div class="card">
+
+      <div class="card-top">
+
+        <div class="number">2</div>
+
+        <h2>Kit Avançado Wi-Fi</h2>
+
+        <img class="sensor" src="https://i.imgur.com/v5mQx1Q.png">
+
+      </div>
+
+      <div class="price">
+        <span>R$</span> 595
+      </div>
+
+      <div class="content">
+
+        <ul>
+          <li>1 Sensor de Presença 24G Wi-Fi</li>
+          <li>1 Controle Inteligente</li>
+          <li>Instalação física</li>
+          <li>Configuração</li>
+        </ul>
+
+        <div class="info-box">
+          <div class="info-title">DESTAQUE</div>
+          <div class="info-text">
+            Sensor muito mais eficiente, detecta até respiração leve.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">O QUE PRECISA?</div>
+          <div class="info-text">
+            Ponto de energia e Internet.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- KIT 3 -->
+    <div class="card purple">
+
+      <div class="card-top">
+
+        <div class="number">3</div>
+
+        <h2>Kit Zigbee 1.0</h2>
+
+        <img class="sensor" src="https://i.imgur.com/v5mQx1Q.png">
+
+      </div>
+
+      <div class="price">
+        <span>R$</span> 695
+      </div>
+
+      <div class="content">
+
+        <ul>
+          <li>1 Sensor de Presença 24G</li>
+          <li>1 Hub Zigbee</li>
+          <li>1 Controle Inteligente</li>
+          <li>Instalação física</li>
+          <li>Configuração</li>
+        </ul>
+
+        <div class="info-box">
+          <div class="info-title">VANTAGEM</div>
+          <div class="info-text">
+            Não precisa de Internet e oferece maior estabilidade.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">O QUE PRECISA?</div>
+          <div class="info-text">
+            Apenas ponto de energia.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- KIT 4 -->
+    <div class="card purple">
+
+      <div class="card-top">
+
+        <div class="number">4</div>
+
+        <h2>Kit Zigbee 2.0</h2>
+
+        <img class="sensor" src="https://i.imgur.com/q1B7YwX.png">
+
+      </div>
+
+      <div class="price">
+        <span>R$</span> 779
+      </div>
+
+      <div class="content">
+
+        <ul>
+          <li>Sensor 24G com bateria</li>
+          <li>1 Hub Zigbee</li>
+          <li>1 Controle Inteligente</li>
+          <li>Instalação física</li>
+          <li>Configuração</li>
+        </ul>
+
+        <div class="info-box">
+          <div class="info-title">VANTAGENS</div>
+          <div class="info-text">
+            Não precisa de tomada no sensor e pode ser instalado no teto com dupla face.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-title">O QUE PRECISA?</div>
+          <div class="info-text">
+            Apenas ponto de energia para o HUB Zigbee.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section-title">
+    <h3>QUAL KIT É IDEAL PARA VOCÊ?</h3>
+  </section>
+
+  <section class="advantages">
+
+    <div class="advantage-card">
+      <h4>💰 Melhor custo inicial</h4>
+      <p>
+        Ideal para quem busca economia com eficiência no dia a dia.
+      </p>
+    </div>
+
+    <div class="advantage-card">
+      <h4>⚡ Mais desempenho</h4>
+      <p>
+        Sensor mais moderno com maior precisão e sensibilidade.
+      </p>
+    </div>
+
+    <div class="advantage-card">
+      <h4>📡 Maior estabilidade</h4>
+      <p>
+        Funciona sem depender da Internet.
+      </p>
+    </div>
+
+    <div class="advantage-card">
+      <h4>⭐ Máxima praticidade</h4>
+      <p>
+        Instalação moderna, discreta e sem fios aparentes.
+      </p>
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <h2>Solicite seu orçamento agora</h2>
+
+    <p>
+      Automação inteligente com instalação profissional e suporte especializado.
+    </p>
+
+    <a href="https://wa.me/5500000000000">
+      Falar no WhatsApp
+    </a>
+
+  </section>
+
+  <footer>
+    © 2026 Automação Inteligente — Todos os direitos reservados
+  </footer>
+
+</div>
+
+</body>
+</html>

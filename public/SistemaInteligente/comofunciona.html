@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Economize Energia Automaticamente</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family: 'Inter', sans-serif;
+      background:#050816;
+      color:white;
+    }
+
+    .gradient{
+      background: linear-gradient(135deg,#00C2FF 0%,#0066FF 100%);
+    }
+
+    .glass{
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .glow{
+      box-shadow: 0 0 40px rgba(0,194,255,0.35);
+    }
+
+    .section-spacing{
+      padding-top:90px;
+      padding-bottom:90px;
+    }
+
+    .faq-item summary{
+      cursor:pointer;
+      list-style:none;
+    }
+
+    .faq-item summary::-webkit-details-marker{
+      display:none;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-cyan-500 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-700 rounded-full blur-[120px]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <div>
+
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8">
+            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+            <span class="text-sm text-gray-300">
+              Automação inteligente para economia de energia
+            </span>
+          </div>
+
+          <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-8">
+            Pare de
+            <span class="text-cyan-400">
+              desperdiçar energia
+            </span>
+            com ar-condicionado ligado sem necessidade
+          </h1>
+
+          <p class="text-xl text-gray-300 leading-relaxed mb-10">
+            Sistema inteligente com sensor de presença humana que desliga automaticamente o ar-condicionado quando o ambiente fica vazio.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+
+            <a href="#contato"
+              class="gradient glow text-white font-bold px-8 py-5 rounded-2xl text-center hover:scale-105 transition">
+              QUERO ECONOMIZAR ENERGIA
+            </a>
+
+            <a href="#como-funciona"
+              class="glass px-8 py-5 rounded-2xl font-semibold text-center hover:bg-white/10 transition">
+              COMO FUNCIONA
+            </a>
+
+          </div>
+
+          <div class="grid grid-cols-3 gap-6">
+
+            <div>
+              <h3 class="text-3xl font-bold text-cyan-400">70%</h3>
+              <p class="text-gray-400 text-sm mt-2">
+                Redução de desperdício
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-3xl font-bold text-cyan-400">100%</h3>
+              <p class="text-gray-400 text-sm mt-2">
+                Controle pelo celular
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-3xl font-bold text-cyan-400">30min</h3>
+              <p class="text-gray-400 text-sm mt-2">
+                Instalação rápida
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="relative">
+
+          <div class="glass rounded-[32px] p-6">
+
+            <img
+              src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop"
+              class="rounded-[24px] w-full h-[520px] object-cover"
+            />
+
+          </div>
+
+          <div class="absolute -bottom-6 -left-6 glass p-5 rounded-2xl">
+            <p class="text-sm text-gray-300">
+              Economia inteligente para:
+            </p>
+
+            <h4 class="font-bold mt-2">
+              Airbnb • Escritórios • Temporada
+            </h4>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="section-spacing">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+
+        <h2 class="text-4xl font-bold mb-6">
+          O problema que custa dinheiro todos os meses
+        </h2>
+
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          Hóspedes saem e deixam o ar ligado. Funcionários esquecem equipamentos funcionando. Ambientes ficam vazios consumindo energia por horas.
+        </p>
+
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-5xl mb-5">💸</div>
+          <h3 class="font-bold text-xl mb-3">
+            Conta de energia alta
+          </h3>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-5xl mb-5">⚠️</div>
+          <h3 class="font-bold text-xl mb-3">
+            Desperdício diário
+          </h3>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-5xl mb-5">❄️</div>
+          <h3 class="font-bold text-xl mb-3">
+            Ar funcionando sem necessidade
+          </h3>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-5xl mb-5">📈</div>
+          <h3 class="font-bold text-xl mb-3">
+            Custos invisíveis recorrentes
+          </h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="section-spacing bg-black/20">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center mb-20">
+
+        <h2 class="text-5xl font-bold mb-6">
+          Como funciona
+        </h2>
+
+        <p class="text-gray-400 text-lg">
+          Tudo acontece automaticamente
+        </p>
+
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-6">
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-cyan-400 text-5xl font-black mb-6">1</div>
+          <h3 class="font-bold text-xl mb-4">
+            Sensor detecta presença
+          </h3>
+          <p class="text-gray-400">
+            O sensor monitora continuamente o ambiente.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-cyan-400 text-5xl font-black mb-6">2</div>
+          <h3 class="font-bold text-xl mb-4">
+            Ambiente vazio
+          </h3>
+          <p class="text-gray-400">
+            Após o tempo configurado o sistema identifica ausência.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-cyan-400 text-5xl font-black mb-6">3</div>
+          <h3 class="font-bold text-xl mb-4">
+            Comando enviado
+          </h3>
+          <p class="text-gray-400">
+            O sistema envia automaticamente o comando via Wi-Fi.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-cyan-400 text-5xl font-black mb-6">4</div>
+          <h3 class="font-bold text-xl mb-4">
+            Controle inteligente
+          </h3>
+          <p class="text-gray-400">
+            Replica o sinal do controle original do ar.
+          </p>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <div class="text-cyan-400 text-5xl font-black mb-6">5</div>
+          <h3 class="font-bold text-xl mb-4">
+            Economia automática
+          </h3>
+          <p class="text-gray-400">
+            O ar-condicionado é desligado automaticamente.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- BENEFÍCIOS -->
+  <section class="section-spacing">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <div>
+
+          <h2 class="text-5xl font-bold mb-8">
+            Benefícios imediatos
+          </h2>
+
+          <div class="space-y-6">
+
+            <div class="glass rounded-2xl p-6 flex gap-5">
+              <div class="text-4xl">⚡</div>
+
+              <div>
+                <h3 class="font-bold text-xl mb-2">
+                  Economia real de energia
+                </h3>
+
+                <p class="text-gray-400">
+                  Evite desperdícios automaticamente sem depender da atenção das pessoas.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl p-6 flex gap-5">
+              <div class="text-4xl">📱</div>
+
+              <div>
+                <h3 class="font-bold text-xl mb-2">
+                  Controle total pelo celular
+                </h3>
+
+                <p class="text-gray-400">
+                  Gerencie tudo remotamente através do aplicativo.
+                </p>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl p-6 flex gap-5">
+              <div class="text-4xl">🏠</div>
+
+              <div>
+                <h3 class="font-bold text-xl mb-2">
+                  Ideal para Airbnb e temporada
+                </h3>
+
+                <p class="text-gray-400">
+                  Reduza drasticamente desperdícios causados por hóspedes.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div>
+
+          <div class="glass rounded-[32px] p-8">
+
+            <div class="space-y-8">
+
+              <div class="flex justify-between items-center">
+                <span class="text-gray-400">
+                  Economia mensal estimada
+                </span>
+
+                <span class="text-4xl font-black text-cyan-400">
+                  R$ $$$
+                </span>
+              </div>
+
+              <div class="w-full h-4 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full w-[78%] gradient rounded-full"></div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-6 pt-6">
+
+                <div class="glass rounded-2xl p-6 text-center">
+                  <h3 class="text-3xl font-black text-cyan-400">
+                    24h
+                  </h3>
+
+                  <p class="text-gray-400 mt-2">
+                    Monitoramento
+                  </p>
+                </div>
+
+                <div class="glass rounded-2xl p-6 text-center">
+                  <h3 class="text-3xl font-black text-cyan-400">
+                    Wi-Fi
+                  </h3>
+
+                  <p class="text-gray-400 mt-2">
+                    Controle inteligente
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-spacing bg-black/20">
+
+    <div class="max-w-5xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+
+        <h2 class="text-5xl font-bold mb-6">
+          Dúvidas frequentes
+        </h2>
+
+      </div>
+
+      <div class="space-y-5">
+
+        <details class="faq-item glass rounded-2xl p-6">
+          <summary class="font-bold text-lg">
+            O sistema pode desligar com alguém dormindo?
+          </summary>
+
+          <p class="text-gray-400 mt-4">
+            Nos modelos 5G pode acontecer em situações específicas. Por isso a programação é ajustada conforme o perfil de uso do ambiente.
+	    Nos modelos 24G são mais eficietes e mesmo pessoas completamente imóveis o sensor consegue identificar.
+          </p>
+        </details>
+
+        <details class="faq-item glass rounded-2xl p-6">
+          <summary class="font-bold text-lg">
+            Precisa quebrar parede?
+          </summary>
+
+          <p class="text-gray-400 mt-4">
+            Não.
+		Basta possuir tomada próxima e internet Wi-Fi 2.4GHz nos Kits Wi-Fi.
+		Nos Kits Zigbee é necessário somente ponto de energia (tomada simples).
+          </p>
+        </details>
+
+        <details class="faq-item glass rounded-2xl p-6">
+          <summary class="font-bold text-lg">
+            O controle original continua funcionando?
+          </summary>
+
+          <p class="text-gray-400 mt-4">
+            Sim. O sistema NÃO interfere no funcionamento manual do ar-condicionado.
+          </p>
+        </details>
+
+        <details class="faq-item glass rounded-2xl p-6">
+          <summary class="font-bold text-lg">
+            Qual a garantia?
+          </summary>
+
+          <p class="text-gray-400 mt-4">
+            Garantia de 90 dias.
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section id="contato" class="section-spacing">
+
+    <div class="max-w-5xl mx-auto px-6">
+
+      <div class="gradient rounded-[40px] p-12 lg:p-20 text-center glow">
+
+        <h2 class="text-5xl font-extrabold mb-8 leading-tight">
+          Comece agora a economizar energia automaticamente
+        </h2>
+
+        <p class="text-xl opacity-90 mb-10">
+          Solicite uma avaliação e descubra qual solução é ideal para seu ambiente.
+        </p>
+
+        <a href="https://wa.me/5571993019981"
+          target="_blank"
+          class="bg-white text-black font-extrabold px-10 py-5 rounded-2xl inline-block hover:scale-105 transition">
+          FALAR NO WHATSAPP
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 py-10">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row justify-between gap-5">
+
+      <div>
+        <h3 class="font-bold text-xl">
+          Sistema Inteligente de Economia de Energia
+        </h3>
+
+        <p class="text-gray-500 mt-2">
+          Automação inteligente para imóveis e empresas.
+        </p>
+      </div>
+
+      <div class="text-gray-500">
+        © 2026 Todos os direitos reservados
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- BOTÃO WHATS -->
+  <a href="https://wa.me/5500000000000"
+    target="_blank"
+    class="fixed bottom-6 right-6 gradient w-16 h-16 rounded-full flex items-center justify-center text-3xl glow hover:scale-110 transition z-50">
+    💬
+  </a>
+
+</body>
+</html>
