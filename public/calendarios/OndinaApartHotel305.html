@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ondina Apart Hotel - Disponibilidade</title>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+  <!-- CSS global -->
+
+  <link rel="stylesheet" href="../style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <div class="topo">
+    <a href="../index.html" class="home-btn">
+      <i class="fa-solid fa-house"></i> Imóveis em Salvador
+    </a>
+    <h1>Ondina Apart Hotel, 305</h1>
+  </div>
+
+  <!-- Galeria estilo Airbnb -->
+  <div class="galeria-airbnb">
+    <div class="foto-principal">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/7abd651e-d434-4ccb-ae70-82eb369be093.jpeg?im_w=720" alt="Cozinha">
+    </div>
+
+    <div class="fotos-laterais">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/aab48f09-8c41-45c0-9a51-3cdc7d216cc2.jpeg?im_w=720">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/51ebb16c-de4f-4f16-9e19-7f222fb09b43.jpeg?im_w=720">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/e6b19adf-3b27-401c-8c27-9bfbd2bd0681.jpeg?im_w=720">
+
+      <div class="foto-com-overlay">
+        <img src="https://a0.muscache.com/im/pictures/4866633d-8200-4753-8d94-7b2181d562a4.jpg?im_w=720">
+        <div class="overlay-text">Mostrar mais fotos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal da galeria -->
+  <div id="modal" class="modal">
+    <span class="fechar">&times;</span>
+    <div class="modal-conteudo">
+      <div id="imagens-categoria"></div>
+    </div>
+  </div>
+
+  <!-- Calendário -->
+  <div id="calendar"></div>
+
+  <!-- Botões -->
+  <button class="reserva-btn">Reservar imóvel</button>
+  <a href="../index.html" class="reserva-btn voltar-btn">← Voltar para Home</a>
+
+  <!-- Mapa -->
+  <div id="MapsContato">
+    <div class="map-container">
+      <h2 style="text-align:center;">📍 Localização</h2>
+     <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.3954864365264!2d-38.51449412452854!3d-13.0104684605928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7160365eeff09a7%3A0x9484945906253d22!2sOndina%20Apart%20Hotel!5e0!3m2!1spt-BR!2sbr!4v1764372783699!5m2!1spt-BR!2sbr" 
+    width="100%"
+    height="300"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 Farol Barra Flat – Salvador, Bahia
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+  <!-- Scripts padronizados -->
+  <script src="../js/calendar.js"></script>
+  <script src="../js/galeria.js"></script>
+  <script src="../js/reserva.js"></script>
+
+  <script>
+    /* 🔹 Calendário */
+    criarCalendario({
+      elementId: 'calendar',
+      endpoint: '/disponibilidade/ondinaApartHotel'
+    });
+
+    /* 🔹 Galeria */
+    iniciarGaleria({
+      Cozinha/Sala: [
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/7c852685-11c7-4784-bbe1-cf402f3f11e4.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/9ddceefb-8eda-4f09-9d47-8754e1916661.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/aab48f09-8c41-45c0-9a51-3cdc7d216cc2.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/d66ad49d-bd80-4b01-a046-30c07821ffc7.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/928d7f9d-e8c9-4f09-afb1-ae9297afbf9a.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/1325aa1b-fd5e-4b0d-92fd-6a3df8e07f29.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/aaac963d-66b0-480f-8df9-7ba153f91036.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/4aff3637-80fb-4584-8e3b-2e609a9328bb.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/e87f2139-c567-4455-a1c0-8b7b6fa1f4d2.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/45d7e707-bacc-4e93-b88f-729a67be1d1e.jpeg?im_w=720",
+      ],
+      Quarto: [
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/7abd651e-d434-4ccb-ae70-82eb369be093.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/3611ba6b-83f1-476b-a0dc-884c7a67779b.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/51ebb16c-de4f-4f16-9e19-7f222fb09b43.jpeg?im_w=720",
+       "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/b570f751-7d91-4621-882b-39a08fe6c0d8.jpeg?im_w=720",
+      ],
+      Banheiro: [
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/e6b19adf-3b27-401c-8c27-9bfbd2bd0681.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-1661744394111052827/original/6ab7315a-63e0-4e2e-a22d-2259f98fe080.jpeg?im_w=720",
+      ],
+
+      Piscina: [
+      "https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/4866633d-8200-4753-8d94-7b2181d562a4.jpg?im_w=720",
+      "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/dbf6b79f-b7f7-47df-9ff9-f853edefc800.jpeg?im_w=720",
+      "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/6b3b8703-bda9-474e-b156-3f72192b34f8.png?im_w=1200"
+      ],
+
+      Academia: [
+        "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/0ca5d6e5-8adc-442a-ba74-59cb771930e8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-53270656/original/98289676-c8ab-4fb1-a5cd-5f2ff6cb77c1.jpeg?im_w=720"
+      ]
+    });
+
+    /* 🔹 Reserva */
+    configurarReserva({
+      telefone: '5571993019981',
+      mensagem: 'Ondina Apart Hotel, 305'
+    });
+  </script>
+
+</body>
+</html>
