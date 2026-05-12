@@ -3,16 +3,25 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Studio Moderno em Salvador - Disponibilidade</title>
+
+  <title>
+    Studio Moderno em Salvador - Disponibilidade
+  </title>
 
   <!-- FullCalendar -->
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+    rel="stylesheet"
+  >
 
   <!-- CSS global -->
   <link rel="stylesheet" href="../style.css">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
 </head>
 
 <body>
@@ -21,49 +30,59 @@
   <div class="topo">
 
     <a href="../index.html" class="home-btn">
-      <i class="fa-solid fa-house"></i> Imóveis em Salvador
+      <i class="fa-solid fa-house"></i>
+      Imóveis em Salvador
     </a>
 
-    <h1>Studio Moderno em Salvador</h1>
+    <h1>
+      Studio Moderno em Salvador
+    </h1>
 
   </div>
 
-  <!-- Galeria estilo Airbnb -->
+  <!-- ========================= -->
+  <!-- GALERIA -->
+  <!-- ========================= -->
+
   <div class="galeria-airbnb">
 
-    <!-- Foto principal -->
+    <!-- FOTO PRINCIPAL -->
     <div class="foto-principal">
 
       <img
-        src="https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/9c9a86c5-ef24-48d8-bf1d-7a5a8d7dcb9c.jpeg?im_w=1200"
+        src="https://a0.muscache.com/im/pictures/10a86fe6-04af-47fb-991d-edc6e40cb562.jpg?im_w=720"
         alt="Studio Salvador"
         data-categoria="Sala"
       >
 
     </div>
 
-    <!-- Fotos laterais -->
+    <!-- FOTOS LATERAIS -->
     <div class="fotos-laterais">
 
       <img
-        src="https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/f0b55a6b-8c40-4f03-86ec-6d3df9d1d64c.jpeg?im_w=720"
+        src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=720"
         data-categoria="Sala"
       >
 
       <img
-        src="https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/5a71d7a7-5648-4d92-a4e8-06cbab76859e.jpeg?im_w=720"
+        src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=720"
         data-categoria="Quarto"
       >
 
       <img
-        src="https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/7e4cb112-6378-4c7b-b8f6-72e2b7d4dc66.jpeg?im_w=720"
+        src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=720"
         data-categoria="Cozinha"
       >
 
-      <div class="foto-com-overlay" data-categoria="Sala">
+      <!-- Overlay -->
+      <div
+        class="foto-com-overlay"
+        data-categoria="Sala"
+      >
 
         <img
-          src="https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/df51d4f4-f54d-4e84-a8c2-5fd38bcf4f1f.jpeg?im_w=720"
+          src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=720"
         >
 
         <div class="overlay-text">
@@ -76,10 +95,15 @@
 
   </div>
 
-  <!-- Modal da Galeria -->
+  <!-- ========================= -->
+  <!-- MODAL -->
+  <!-- ========================= -->
+
   <div id="modal" class="modal">
 
-    <span class="fechar">&times;</span>
+    <span class="fechar">
+      &times;
+    </span>
 
     <div class="modal-conteudo">
       <div id="imagens-categoria"></div>
@@ -87,19 +111,31 @@
 
   </div>
 
-  <!-- Calendário -->
+  <!-- ========================= -->
+  <!-- CALENDÁRIO -->
+  <!-- ========================= -->
+
   <div id="calendar"></div>
 
-  <!-- Botões -->
+  <!-- ========================= -->
+  <!-- BOTÕES -->
+  <!-- ========================= -->
+
   <button class="reserva-btn">
     Reservar imóvel
   </button>
 
-  <a href="../index.html" class="reserva-btn voltar-btn">
+  <a
+    href="../index.html"
+    class="reserva-btn voltar-btn"
+  >
     ← Voltar para Home
   </a>
 
-  <!-- Localização -->
+  <!-- ========================= -->
+  <!-- MAPA -->
+  <!-- ========================= -->
+
   <div id="MapsContato">
 
     <div class="map-container">
@@ -122,12 +158,18 @@
 
   </div>
 
-  <!-- Rodapé -->
+  <!-- ========================= -->
+  <!-- RODAPÉ -->
+  <!-- ========================= -->
+
   <footer>
     &copy; 2026 Studio Moderno Salvador – Bahia
   </footer>
 
-  <!-- Scripts -->
+  <!-- ========================= -->
+  <!-- SCRIPTS -->
+  <!-- ========================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
   <!-- Scripts padronizados -->
@@ -137,56 +179,68 @@
 
   <script>
 
-    /* 🔹 Calendário */
+    /* ========================= */
+    /* CALENDÁRIO */
+    /* ========================= */
+
     criarCalendario({
+
       elementId: 'calendar',
+
       endpoint: '/disponibilidade/studioModernoSalvador'
+
     });
 
-    /* 🔹 Galeria */
+    /* ========================= */
+    /* GALERIA */
+    /* ========================= */
+
     iniciarGaleria({
 
       Sala: [
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/9c9a86c5-ef24-48d8-bf1d-7a5a8d7dcb9c.jpeg?im_w=1200",
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200",
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/f0b55a6b-8c40-4f03-86ec-6d3df9d1d64c.jpeg?im_w=1200",
+        "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200",
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/5a71d7a7-5648-4d92-a4e8-06cbab76859e.jpeg?im_w=1200"
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200"
 
       ],
 
       Quarto: [
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/7e4cb112-6378-4c7b-b8f6-72e2b7d4dc66.jpeg?im_w=1200",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200",
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/df51d4f4-f54d-4e84-a8c2-5fd38bcf4f1f.jpeg?im_w=1200"
+        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200"
 
       ],
 
       Cozinha: [
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/2f9d1c59-c80e-4d34-95a0-9f8658eac429.jpeg?im_w=1200",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200",
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/9d6e9270-c5ab-4a61-b1dd-8d51cb07cdbc.jpeg?im_w=1200"
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1200"
 
       ],
 
       Banheiro: [
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/5d95fd39-5938-4b88-9387-cc20ef5bb6e1.jpeg?im_w=1200"
+        "https://images.unsplash.com/photo-1620626011761-996317b8d101?q=80&w=1200"
 
       ],
 
       Vista: [
 
-        "https://a0.muscache.com/im/pictures/miso/Hosting-1661744394111052827/original/6a34bb1d-82f5-49f4-9d4f-66e36c35cdb9.jpeg?im_w=1200"
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200"
 
       ]
 
     });
 
-    /* 🔹 Reserva */
+    /* ========================= */
+    /* RESERVA */
+    /* ========================= */
+
     configurarReserva({
 
       telefone: '5571993019981',
